@@ -61,7 +61,7 @@ SET PropertySplitCity = SUBSTRING(PropertyAddress, 1, CHARINDEX(',',PropertyAddr
 Select OwnerAddress
 From PortfolioProject.dbo.NashvillHousing
 
-SelEct
+Select
 PARSENAME(REPLACE(OwnerAddress,',',';'),3)
 ,PARSENAME(REPLACE(OwnerAddress,',',';'),2)
 ,PARSENAME(REPLACE(OwnerAddress,',',';'),1)
