@@ -67,18 +67,6 @@ JOIN province_names PN ON P.province_id = PN.province_id
 GROUP BY PN.province_name
 ORDER BY total_amount DESC
 
-
--- Display the total amount of patients for each province. Order by descending.
-
-SELECT
-  D.doctor_id,
-  CONCAT(D.first_name,' ',D.last_name) AS full_name,
-  MIN(admission_date),
-  MAX(admission_date)
-FROM doctors D
-JOIN admissions A ON D.doctor_id = A.attending_doctor_id
-GROUP BY D.doctor_id
-
 -- Show first_name, last_name, and the total number of admissions attended for each doctor. Every admission has been attended by a doctor.
 
 SELECT
@@ -88,25 +76,6 @@ SELECT
 FROM doctors D
 JOIN admissions A ON D.doctor_id = A.attending_doctor_id
 GROUP BY D.doctor_id
-
--- Show patient_id, attending_doctor_id, and diagnosis for admissions that match one of the two criteria:
--- 1. patient_id is an odd number and attending_doctor_id is either 1, 5, or 19.
--- 2. attending_doctor_id contains a 2 and the length of patient_id is 3 characters.
-
-SELECT
-  patient_id,
-  attending_doctor_id,
-  diagnosis
-FROM admissions
-WHERE
-  (
-    patient_id % 2 != 0
-    AND attending_doctor_id IN (1, 5, 19)
-  )
-  OR (
-    attending_doctor_id LIKE '%2%'
-    AND LEN(patient_id) = 3
-  )
 
 -- Show all columns for patient_id 542's most recent admission_date.
 SELECT*
@@ -226,12 +195,12 @@ SELECT CONCAT(
 FROM patients;
 
  -- We are looking for a specific patient. Pull all columns for the patient who matches the following criteria:
-- First_name contains an 'r' after the first two letters.
- - Identifies their gender as 'F'
- - Born in February, May, or December
- - Their weight would be between 60kg and 80kg
- - Their patient_id is an odd number
- - They are from the city 'Kingston'
+ -- First_name contains an 'r' after the first two letters.
+ -- Identifies their gender as 'F'
+ -- Born in February, May, or December
+ -- Their weight would be between 60kg and 80kg
+ -- Their patient_id is an odd number
+ -- They are from the city 'Kingston'
 
 SELECT *
 FROM patients
@@ -269,11 +238,7 @@ FROM admissions
 GROUP BY has_insurance;
 
  -- All patients who have gone through admissions, can see their medical documents on our site. Those patients are given a temporary password after their first admission. Show the patient_id and temp_password.
-
- The password must be the following, in order:
- 1. patient_id
- 2. the numerical length of patient's last_name
- 3. year of patient's birth_date
+ -- The password must be the following, in order: 1. patient_id 2. the numerical length of patient's last_name 3. year of patient's birth_date
 
 SELECT
   DISTINCT P.patient_id,
