@@ -12,13 +12,8 @@ WHERE patient_id NOT IN(
 
 
 -- Display patient's full name,
-height in the units feet rounded to 1 decimal,
-weight in the unit pounds rounded to 0 decimals,
-birth_date,
-gender non abbreviated.
-
-Convert CM to feet by dividing by 30.48.
-Convert KG to pounds by multiplying by 2.205.
+-- height in the units feet rounded to 1 decimal,
+-- weight in the unit pounds rounded to 0 decimals,birth_date,gender non abbreviated. Convert CM to feet by dividing by 30.48. Convert KG to pounds by multiplying by 2.205.
 
 SELECT
   CONCAT(first_name, ' ', last_name) AS full_name,
@@ -84,9 +79,8 @@ FROM doctors D
 JOIN admissions A ON D.doctor_id = A.attending_doctor_id
 GROUP BY D.doctor_id
 
--- Show first_name, last_name, and the total number of admissions attended for each doctor.
+-- Show first_name, last_name, and the total number of admissions attended for each doctor. Every admission has been attended by a doctor.
 
-Every admission has been attended by a doctor.
 SELECT
   D.first_name, 
   D.last_name,
@@ -96,8 +90,8 @@ JOIN admissions A ON D.doctor_id = A.attending_doctor_id
 GROUP BY D.doctor_id
 
 -- Show patient_id, attending_doctor_id, and diagnosis for admissions that match one of the two criteria:
-1. patient_id is an odd number and attending_doctor_id is either 1, 5, or 19.
-2. attending_doctor_id contains a 2 and the length of patient_id is 3 characters.
+-- 1. patient_id is an odd number and attending_doctor_id is either 1, 5, or 19.
+-- 2. attending_doctor_id contains a 2 and the length of patient_id is 3 characters.
 
 SELECT
   patient_id,
@@ -161,8 +155,9 @@ GROUP BY province_id
 HAVING sum_hei >= 7000
 
 -- Show patient_id, attending_doctor_id, and diagnosis for admissions that match one of the two criteria:
-1. patient_id is an odd number and attending_doctor_id is either 1, 5, or 19.
-2. attending_doctor_id contains a 2 and the length of patient_id is 3 characters.
+-- 1. patient_id is an odd number and attending_doctor_id is either 1, 5, or 19.
+-- 2. attending_doctor_id contains a 2 and the length of patient_id is 3 characters.
+
 SELECT
   patient_id,
   attending_doctor_id,
@@ -304,15 +299,8 @@ WHERE
   ph.first_name = 'Lisa' and
 a.	diagnosis = 'Epilepsy'
 
- -- Show patient_id, weight, height, isObese from the patients table.
-
- Display isObese as a boolean 0 or 1.
-
- Obese is defined as weight(kg)/(height(m)2) >= 30.
-
- weight is in units kg.
-
- height is in units cm.
+ -- Show patient_id, weight, height, isObese from the patients table. Display isObese as a boolean 0 or 1.vObese is defined as weight(kg)/(height(m)2) >= 30.
+-- weight is in units kg. height is in units cm.
 
 SELECT patient_id, weight, height, 
   (CASE 
@@ -330,10 +318,8 @@ SELECT
   weight / power(CAST(height AS float) / 100, 2) >= 30 AS obese
 FROM patients
 
- --Show all of the patients grouped into weight groups.
- Show the total amount of patients in each weight group.
- Order the list by the weight group decending.
- For example, if they weight 100 to 109 they are placed in the 100 weight group, 110-119 = 110 weight group, etc.
+ --Show all of the patients grouped into weight groups. Show the total amount of patients in each weight group.
+ -- Order the list by the weight group decending. For example, if they weight 100 to 109 they are placed in the 100 weight group, 110-119 = 110 weight group, etc.
 
 SELECT
   count(patient_id),
