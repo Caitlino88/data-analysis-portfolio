@@ -44,50 +44,6 @@ from scipy import stats
 # #计算样本中1件次品发生的概率
 # probability = binom.pmf(k,n,p)
 
-# #判断是否拒绝零假设
-# if probability < alpha:
-#     print("拒绝零假设，该批商品正品率不大于95%")
-# else:
-#     print("无法拒绝零假设，该批商品正品率>95%")
-
-#应用案例3，仓库送来一包a款衣服，共200件，衣服胸围尺寸要求按工艺单108cm，99%的商品尺寸误差不大于2cm才可接收。质检员现从中抽取10件，胸围分别为：107,109,110,107.6,108.5,106.7,107.1,107.3,108,105,该批衣服是否可接收入库
-
-#H0:该批衣服不满足99%的尺寸在[106,110]，不可接收
-#H1:该批衣服满足99%的尺寸在[106,110]，可接收
-
-import pandas as pd
-import math
-from scipy.stats import t
-dataSer3 = pd.Series([107,109,110,107.6,108.5,106.7,107.1,107.3,108,105])
-sample3_mean = dataSer3.mean()
-sample3_std = dataSer3.std()
-pop_mean3 = 108      #总体均值
-sample3_size = 10   #样本量
-print('样本均值=%.2f'%sample3_mean)
-print('样本方差=%.2f'%sample3_std)
-
-#设定显著性水平为1%
-alpha1 = 0.005
-# t_value3 = (sample3_mean-pop_mean3)/(sample3_std/ np.sqrt(sample3_size))
-# df3 = sample3_size-1   #自由度
-
-# p_value3 = 2 *(1 - t.cdf(abs(t_value3),df3))
-# print(p_value3)
-
-t3,p3_twotail = stats.ttest_1samp(dataSer3,pop_mean3)
-print('t值=',t3,'双尾检验p值',p3_twotail)
-
-p3_onetail = p3_twotail/2
-
-if p3_onetail < alpha1:
-    print("拒绝零假设")
-else:
-    print("不拒绝零假设")
-
-
-import random as rd
-x = rd.randint(1,10)
-print(x)
 
 
 
